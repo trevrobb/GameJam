@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/base_out_atlas.png" type="Texture" id=1]
 [ext_resource path="res://Assets/terrain_atlas.png" type="Texture" id=2]
+[ext_resource path="res://Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://Assets/$popotawalk_sheet.png" type="Texture" id=4]
+[ext_resource path="res://GUI/GUI.tscn" type="PackedScene" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "base_out_atlas.png 0"
@@ -354,7 +357,9 @@ points = PoolVector2Array( 32, 64, 0, 64, 0, 0, 32, 0 )
 3/shapes = [  ]
 3/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id=12]
+
+[node name="Game" type="Node2D"]
 
 [node name="background" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -370,3 +375,23 @@ tile_data = PoolIntArray( 65536, 7, 0, 131072, 7, 0, 131119, 7, 0, 131120, 7, 0,
 tile_set = SubResource( 7 )
 format = 1
 tile_data = PoolIntArray( 65568, 2, 0, 131101, 2, 0, 131103, 0, 0, 196635, 1, 0, 196636, 0, 0, 262166, 2, 0, 262168, 2, 0, 262170, 2, 0, 262176, 1, 0, 262182, 2, 0, 262184, 2, 0, 327697, 2, 0, 327714, 1, 0, 327719, 3, 0, 327722, 2, 0, 393219, 2, 0, 393220, 2, 0, 393223, 2, 0, 393224, 2, 0, 393227, 2, 0, 393228, 2, 0, 393261, 2, 0, 458753, 1, 0, 458754, 0, 0, 458757, 1, 0, 458758, 0, 0, 458761, 1, 0, 458762, 3, 0, 458766, 0, 0, 458767, 1, 0, 458776, 2, 0, 458780, 1, 0, 458795, 1, 0, 458796, 0, 0, 524308, 1, 0, 524310, 1, 0, 524311, 0, 0, 524318, 1, 0, 524322, 1, 0, 589859, 2, 0, 589863, 1, 0, 655361, 2, 0, 655365, 2, 0, 655386, 2, 0, 655393, 1, 0, 655394, 0, 0, 720896, 3, 0, 720898, 1, 0, 720899, 1, 0, 720900, 0, 0, 720903, 1, 0, 720908, 2, 0, 720915, 2, 0, 720918, 2, 0, 720926, 2, 0, 720936, 1, 0, 720939, 2, 0, 720943, 2, 0, 786441, 1, 0, 786443, 3, 0, 786444, 1, 0, 786460, 1, 0, 786461, 0, 0, 786463, 1, 0, 786470, 1, 0, 786477, 1, 0, 786478, 3, 0, 851982, 1, 0, 851985, 2, 0, 851989, 2, 0, 851992, 1, 0, 851995, 2, 0, 917520, 0, 0, 917522, 1, 0, 917523, 1, 0, 917524, 3, 0, 917531, 0, 0 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 99, 485 )
+scale = Vector2( 1.125, 1 )
+texture = ExtResource( 4 )
+hframes = 3
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 99, 486 )
+shape = SubResource( 12 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 515, 533 )
+current = true
+
+[node name="GUI" parent="." instance=ExtResource( 5 )]
